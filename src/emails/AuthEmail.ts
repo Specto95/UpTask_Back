@@ -24,7 +24,7 @@ export class AuthEmail {
       } confirma tu cuenta</p>
         <p>Visita el sig. enlace:</p>
         <a href="${
-          process.env.FRONTEND_URL
+          process.env.FRONTEND_URL || "http://localhost:5173"
         }/auth/confirm-account">Confirmar cuenta</a>
         <p> E ingresa el codigo: <b>${token}</b></p>
         <p>Este token expira en 10 minutos</p>
@@ -47,7 +47,9 @@ export class AuthEmail {
       text: "UpTask - Reestablece tu password",
       html: `<p>Hola ${name}, has solicitado reestablecer tu password</p>
         <p>Visita el sig. enlace:</p>
-        <a href="${process.env.FRONTEND_URL}/auth/new-password">Confirmar cuenta</a>
+        <a href="${
+          process.env.FRONTEND_URL || "http://localhost:5173"
+        }/auth/new-password">Confirmar cuenta</a>
         <p> E ingresa el codigo: <b>${token}</b></p>
         <p>Este token expira en 15 minutos</p>
       `,
