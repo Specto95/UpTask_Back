@@ -13,7 +13,7 @@ connectDB();
 
 const app = express();
 
-app.use(cors(corsConfig));
+app.use(cors());
 
 // LOGGING
 app.use(morgan("dev"));

@@ -1,13 +1,16 @@
 import { Request, Response } from "express";
-import { User } from "../models/User";
+import { IUser, User } from "../models/User";
 import { checkPassword, hashPassword } from "../utils/auth";
 import { Token } from "../models/Token";
-import { generateToken, generateUniqueToken } from "../utils/token";
+import { generateUniqueToken } from "../utils/token";
 import { AuthEmail } from "../emails/AuthEmail";
 import { generateJWT } from "../utils/jwt";
 
 export class AuthController {
-  static createAccount = async (req: Request, res: Response) => {
+  static createAccount = async (
+    req: Request<{}, {}, Pick<IUser, "password" | "email">>,
+    res: Response
+  ) => {
     try {
       const { password, email } = req.body;
       const user = new User(req.body);
@@ -273,7 +276,7 @@ export class AuthController {
 
     const user = await User.findById(req.user.id);
 
-    const isPasswordCorrect = await checkPassword(password,  user.password);
+    const isPasswordCorrect = await checkPassword(password, user.password);
 
     if (!isPasswordCorrect) {
       const error = new Error("Password incorrecto");
